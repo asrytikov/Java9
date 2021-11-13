@@ -1,6 +1,4 @@
 @FunctionalInterface
-public interface Calculator <T extends Number>{
-
-
+public interface Calculator<T extends Number> {
     double calculateFees(T clubID);
 }

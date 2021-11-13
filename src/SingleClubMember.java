@@ -7,8 +7,8 @@ public class SingleClubMember extends Member {
         club = pClub;
     }
 
-    public void setClub(int club) {
-        this.club = club;
+    public void setClub(int pClub) {
+        club = pClub;
     }
 
     public int getClub() {
@@ -17,8 +17,6 @@ public class SingleClubMember extends Member {
 
     @Override
     public String toString() {
-        return "SingleClubMember{" +
-                "club=" + club +
-                '}';
+        return super.toString() + ", " + club;
     }
 }

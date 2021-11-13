@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.Scanner;
 public class MembershipManagement {
-    final private Scanner reader;
+    final private Scanner reader = new Scanner(System.in);
 
     public Scanner getReader() {
         return reader;
@@ -56,12 +56,17 @@ public class MembershipManagement {
         printClubOptions();
         getIntInput();
         getStringInput();
-        int club = 1;
+        String name;
+        int club = getIntInput();
         String mem;
         double fees;
         int memberID;
-        Member mbr = new Member(char pMemberType, int pMemberID, String pName, double pFees);
+        Member mbr;
         Calculator<Integer> cal;
+
+        System.out.print("\nPlease enter the member's name: ");
+        name = reader.nextLine();
+
         cal = (n) -> {
             switch (n) {
                 case 1:
@@ -74,14 +79,23 @@ public class MembershipManagement {
                     return -1;
             }
         };
+
+        if (m.size() > 0)
+            memberID = m.getLast().getMemberID() + 1;
+        else
+            memberID = 1;
         fees = cal.calculateFees(club);
+        mbr = new SingleClubMember('S', memberID, name, fees, club);
+
         memberID = mbr.getMemberID();
-        String name = getStringInput();
+        /*String name = getStringInput();
         mem = {"%memberID%, + %name% + %fees% + %club% + %membershipPoints%}';
 
-    };
-        return mem;
 
+        };*/
+        mem = mbr.toString();
+        return mem;
+    }
 //        SingleClubMember singleClubMember = new SingleClubMember(memberType, memberID, name, fees, club);
 //        return String;
 

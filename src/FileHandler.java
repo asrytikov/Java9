@@ -1,24 +1,43 @@
 import java.io.*;
 import java.util.LinkedList;
+
 public class FileHandler {
     public LinkedList<Member> readFile() {
-        String path = "D:/док/members.csv";
+        LinkedList<Member> m = new LinkedList<>();
+        String[] splitLine;
+        String path = "members.csv";
         String line;
+        Member mem;
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
 
             line = bufferedReader.readLine();
             while (line != null) {
-                System.out.println(line);
+                /*System.out.println(line);
+                line = bufferedReader.readLine();*/
+
+                splitLine = line.split(", ");
+                if (splitLine[0].equals("S")) {
+                    mem = new SingleClubMember('S',
+                            Integer.parseInt(splitLine[1]), splitLine[2],
+                            Double.parseDouble(splitLine[3]),
+                            Integer.parseInt(splitLine[4]));
+                } else {
+                    mem = new MultiClubMember('M',
+                            Integer.parseInt(splitLine[1]), splitLine[2],
+                            Double.parseDouble(splitLine[3]),
+                            Integer.parseInt(splitLine[4]));
+                }
+                m.add(mem);
                 line = bufferedReader.readLine();
             }
             bufferedReader.close();
         } catch (IOException ex) {
             System.out.println("Error");
         }
-        return line;
-        members.add(line);
+        return m;
     }
+
     public void appendFile(String mem) {
         String path = "D:/док/members.csv";
         //mem - новая строка с информацией о новом посетителе. Её надо сюда передать;
@@ -32,6 +51,7 @@ public class FileHandler {
             System.out.println("Error write");
         }
     }
+
     public void overwriteFile(LinkedList<Member> m) {
         //вызывается при удалении посетителя.(remove) Сначала он должен удалиться из LinkedList
         //создаем временный файл
@@ -53,19 +73,19 @@ public class FileHandler {
         }
         //Удаляем файл members.csv
         File file3 = new File("D:/док/members.csv");
-        if (file3.exists()){
+        if (file3.exists()) {
             file3.delete();
         }
-            String path = "D:/док/members.csv";
-            File file = new File("D:/док/members.temp");
-            if (file.exists()) {
-                File file2 = new File("D:/док/members.csv");
-                boolean rename = file.renameTo(file2);
-                path = file2.getParent() + "//" + file2.getName();
-                if (!rename) {
-                    System.out.println("Error rename");
-                }
+        String path = "D:/док/members.csv";
+        File file = new File("D:/док/members.temp");
+        if (file.exists()) {
+            File file2 = new File("D:/док/members.csv");
+            boolean rename = file.renameTo(file2);
+            path = file2.getParent() + "//" + file2.getName();
+            if (!rename) {
+                System.out.println("Error rename");
             }
         }
-
     }
+
+}

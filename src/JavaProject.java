@@ -7,43 +7,31 @@ public class JavaProject {
 
         String mem;
         MembershipManagement mm = new MembershipManagement();
-        String path = "D:/док/members.csv";
+        String path = "members.csv";
         FileHandler fh = new FileHandler();
-        fh.readFile();
-
-//        LinkedList<Member> members = new LinkedList<>();
         LinkedList<Member> members = fh.readFile();
-
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
-//        line = bufferedReader.readLine();
-//        members.add(line);
-        String path = "D:/док/members.csv";
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
-        String line;
-
-
         int choice = mm.getChoice();
-
-        if (choice == 1) {
-            mm.addMembers(members);
+        while (choice != -1) {
+            switch (choice) {
+                case 1:
+                    mem = mm.addMembers(members);
+                    fh.appendFile(mem);
+                    break;
+                case 2:
+                    mm.removeMember(members);
+                    fh.overwriteFile(members);
+                    break;
+                case 3:
+                    mm.printMemberInfo(members);
+                    break;
+                default:
+                    System.out.println("Invalid options");
+                    break;
+            }
+            choice = mm.getChoice();
         }
-        else if (choice == 2) {
-            mm.removeMember(members);
-        }
-        else if (choice == 3) {
-            mm.printMemberInfo(members);
-        }
-
-        }
-
-
-
-
-
-
-
-
-
+        System.out.println("Bye");
     }
+}
 
 
